@@ -1,8 +1,9 @@
-import pandas as pd
-import sqlite3
+"""Compatibility entry point; importing this module never touches a database."""
 
-df = pd.read_csv('15m_data.csv', sep='\t')
+import sys
 
-conn = sqlite3.connect('market_data.db')
-df.to_sql('market_data', conn, if_exists='replace', index=False)
-conn.close()
+from marketlab.cli import main
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(["import", *sys.argv[1:]]))
